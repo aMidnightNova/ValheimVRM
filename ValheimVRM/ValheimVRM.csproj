@@ -2,10 +2,9 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>net462</TargetFramework>
-    <Version>1.1.2.0</Version>
-    <AssemblyVersion>1.1.3.0</AssemblyVersion>
-    <PackageVersion>1.1.3.0</PackageVersion>
+    <Version>1.2</Version>
+    <TargetFramework>net471</TargetFramework>
+
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -14,89 +13,101 @@
 
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\BepInEx\core\0Harmony.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\BepInEx\core\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="assembly_utils">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\valheim_Data\Managed\assembly_utils.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\assembly_utils.dll</HintPath>
     </Reference>
     <Reference Include="assembly_guiutils">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\valheim_Data\Managed\assembly_guiutils.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\assembly_guiutils.dll</HintPath>
     </Reference>
     <Reference Include="assembly_valheim">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\valheim_Data\Managed\assembly_valheim.dll</HintPath>
-    </Reference>
-    <Reference Include="BepInEx">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\BepInEx\core\BepInEx.dll</HintPath>
-    </Reference>
-    <Reference Include="FastSpringBone">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\valheim_Data\Managed\FastSpringBone.dll</HintPath>
-    </Reference>
-    <Reference Include="FastSpringBone10">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\valheim_Data\Managed\FastSpringBone10.dll</HintPath>
-    </Reference>
-    <Reference Include="MeshUtility">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\valheim_Data\Managed\MeshUtility.dll</HintPath>
-    </Reference>
-    <Reference Include="MToon">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\valheim_Data\Managed\MToon.dll</HintPath>
-    </Reference>
-    <Reference Include="ShaderProperty.Runtime">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\valheim_Data\Managed\ShaderProperty.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="UniGLTF">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\valheim_Data\Managed\UniGLTF.dll</HintPath>
-    </Reference>
-    <Reference Include="UniGLTF.Samples.ScreenSpace">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\valheim_Data\Managed\UniGLTF.Samples.ScreenSpace.dll</HintPath>
-    </Reference>
-    <Reference Include="UniHumanoid">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\valheim_Data\Managed\UniHumanoid.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\assembly_valheim.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
+    
+    
+    <Reference Include="BepInEx">
+      <HintPath>$(VALHEIM_INSTALL)\BepInEx\core\BepInEx.dll</HintPath>
+    </Reference>
+ 
+    
     <Reference Include="UnityEngine.AnimationModule">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\unstripped_corlib\UnityEngine.AnimationModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.AnimationModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\unstripped_corlib\UnityEngine.AssetBundleModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.AssetBundleModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\unstripped_corlib\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\unstripped_corlib\UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.UI.dll</HintPath>
     </Reference>
-    <Reference Include="UniUnlit">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\valheim_Data\Managed\UniUnlit.dll</HintPath>
-    </Reference>
+<!--    <Reference Include="UniUnlit">-->
+<!--      <HintPath>..\UniUnlit.dll</HintPath>-->
+<!--    </Reference>-->
     <Reference Include="VRM">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\valheim_Data\Managed\VRM.dll</HintPath>
+      <HintPath>..\libs\VRM.dll</HintPath>
     </Reference>
     <Reference Include="VRM10">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\valheim_Data\Managed\VRM10.dll</HintPath>
+      <HintPath>..\libs\VRM10.dll</HintPath>
     </Reference>
     <Reference Include="VrmLib">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\valheim_Data\Managed\VrmLib.dll</HintPath>
+      <HintPath>..\libs\VrmLib.dll</HintPath>
     </Reference>
     <Reference Include="VRMShaders.GLTF.IO.Runtime">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\valheim_Data\Managed\VRMShaders.GLTF.IO.Runtime.dll</HintPath>
+      <HintPath>..\libs\VRMShaders.GLTF.IO.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="VRMShaders.GLTF.UniUnlit.Runtime">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\valheim_Data\Managed\VRMShaders.GLTF.UniUnlit.Runtime.dll</HintPath>
+      <HintPath>..\libs\VRMShaders.GLTF.UniUnlit.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="VRMShaders.VRM.IO.Runtime">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\valheim_Data\Managed\VRMShaders.VRM.IO.Runtime.dll</HintPath>
+      <HintPath>..\libs\VRMShaders.VRM.IO.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="VRMShaders.VRM10.Format.Runtime">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\valheim_Data\Managed\VRMShaders.VRM10.Format.Runtime.dll</HintPath>
+      <HintPath>..\libs\VRMShaders.VRM10.Format.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="VRMShaders.VRM10.MToon10.Runtime">
-      <HintPath>D:\games\steam\steamapps\common\Valheim\valheim_Data\Managed\VRMShaders.VRM10.MToon10.Runtime.dll</HintPath>
+      <HintPath>..\libs\VRMShaders.VRM10.MToon10.Runtime.dll</HintPath>
     </Reference>
+
+    <Reference Include="FastSpringBone">
+      <HintPath>..\libs\FastSpringBone.dll</HintPath>
+    </Reference>
+    <Reference Include="FastSpringBone10">
+      <HintPath>..\libs\FastSpringBone10.dll</HintPath>
+    </Reference>
+<!--    <Reference Include="MeshUtility">-->
+<!--      <HintPath>..\libs\MeshUtility.dll</HintPath>-->
+<!--    </Reference>-->
+    <Reference Include="MToon">
+      <HintPath>..\libs\MToon.dll</HintPath>
+    </Reference>
+<!--    <Reference Include="ShaderProperty.Runtime">-->
+<!--      <HintPath>..\libs\ShaderProperty.Runtime.dll</HintPath>-->
+<!--    </Reference>-->
+    <Reference Include="UniGLTF">
+      <HintPath>..\libs\UniGLTF.dll</HintPath>
+    </Reference>
+    <Reference Include="UniGLTF.Utils">
+      <HintPath>..\libs\UniGLTF.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="UniGLTF.Editor">
+      <HintPath>..\libs\UniGLTF.Editor.dll</HintPath>
+    </Reference>
+<!--    <Reference Include="UniGLTF.Samples.ScreenSpace">-->
+<!--      <HintPath>..\libs\UniGLTF.Samples.ScreenSpace.dll</HintPath>-->
+<!--    </Reference>-->
+    <Reference Include="UniHumanoid">
+      <HintPath>..\libs\UniHumanoid.dll</HintPath>
+    </Reference>
+
 
   </ItemGroup>
 
@@ -104,8 +115,70 @@
     <PackageReference Include="CloudinaryDotNet" Version="1.18.1" />
   </ItemGroup>
 
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="set GamePath=D:\games\steam\steamapps\common\Valheim\BepInEx\plugins\&#xA;&#xA;del &quot;%GamePath%$(TargetFileName)&quot;&#xA;del &quot;%GamePath%$(TargetName).pdb&quot;&#xA;del &quot;%GamePath%$(TargetFileName).mdb&quot;&#xA;&#xA;if $(ConfigurationName)==Debug goto DEBUG&#xA;if $(ConfigurationName)==Release goto RELEASE&#xA;goto END&#xA;&#xA;:DEBUG&#xA;$(SolutionDir)pdb2mdb.exe $(TargetPath)&#xA;copy &quot;$(TargetDir)$(TargetFileName)&quot; &quot;%GamePath%$(TargetFileName)&quot;&#xA;copy &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;%GamePath%$(TargetName).pdb&quot;&#xA;copy &quot;$(TargetDir)$(TargetFileName).mdb&quot; &quot;%GamePath%$(TargetFileName).mdb&quot;&#xA;goto END&#xA;&#xA;:RELEASE&#xA;copy &quot;$(TargetDir)$(TargetFileName)&quot; &quot;%GamePath%$(TargetFileName)&quot;&#xA;goto END&#xA;&#xA;:END" />
+    <!-- Set Paths -->
+    <PropertyGroup>
+      <BepInExPluginPath>$(VALHEIM_INSTALL)\BepInEx\plugins\</BepInExPluginPath>
+      <LibsPath>$(SolutionDir)libs\</LibsPath>
+      <ShadersPath>$(SolutionDir)shaders\</ShadersPath>
+      <ManagedPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\</ManagedPath>
+      <Pdb2MdbPath>$(SolutionDir)pdb2mdb.exe</Pdb2MdbPath>
+      <UnstrippedCorlibPath>$(VALHEIM_INSTALL)\unstripped_corlib\</UnstrippedCorlibPath>
+    </PropertyGroup>
+
+    <PropertyGroup>
+      <ReleasePath>$(SolutionDir)release\</ReleasePath>
+      <ReleaseManagedPath>$(ReleasePath)valheim_Data\Managed\</ReleaseManagedPath>
+      <ReleasePluginPath>$(ReleasePath)BepInEx\plugins\</ReleasePluginPath>
+    </PropertyGroup>
+
+
+    <!-- Delete old files from BepInExPluginPath -->
+    <Exec Command="del &quot;$(BepInExPluginPath)$(TargetFileName)&quot;" />
+    <Exec Command="del &quot;$(BepInExPluginPath)$(TargetName).pdb&quot;" />
+    <Exec Command="del &quot;$(BepInExPluginPath)$(TargetFileName).mdb&quot;" />
+
+    <!-- Copy all files from Libs to ManagedPath -->
+    <Exec Command="copy &quot;$(LibsPath)*.*&quot; &quot;$(ManagedPath)&quot;" />
+    <Exec Command="copy &quot;$(ShadersPath)*.*&quot; &quot;$(BepInExPluginPath)&quot;" />
+
+    <!-- Copy named files from UnstrippedCorlibPath to ManagedPath -->
+    <Exec Command="copy &quot;$(UnstrippedCorlibPath)UnityEngine.AnimationModule.dll&quot; &quot;$(ManagedPath)&quot;" />
+    <Exec Command="copy &quot;$(UnstrippedCorlibPath)UnityEngine.AssetBundleModule.dll&quot; &quot;$(ManagedPath)&quot;" />
+    <Exec Command="copy &quot;$(UnstrippedCorlibPath)UnityEngine.CoreModule.dll&quot; &quot;$(ManagedPath)&quot;" />
+    <Exec Command="copy &quot;$(UnstrippedCorlibPath)UnityEngine.PhysicsModule.dll&quot; &quot;$(ManagedPath)&quot;" />
+    <Exec Command="copy &quot;$(UnstrippedCorlibPath)UnityEngine.UI.dll&quot; &quot;$(ManagedPath)&quot;" />
+
+    <!-- Actions for Debug Configuration -->
+    <Exec Condition=" '$(Configuration)' == 'Debug' " Command="&quot;$(Pdb2MdbPath)&quot; &quot;$(TargetPath)&quot;" />
+    <Exec Condition=" '$(Configuration)' == 'Debug' " Command="copy &quot;$(TargetDir)$(TargetFileName)&quot; &quot;$(BepInExPluginPath)$(TargetFileName)&quot;" />
+    <Exec Condition=" '$(Configuration)' == 'Debug' " Command="copy &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;$(BepInExPluginPath)$(TargetName).pdb&quot;" />
+    <Exec Condition=" '$(Configuration)' == 'Debug' " Command="copy &quot;$(TargetDir)$(TargetFileName).mdb&quot; &quot;$(BepInExPluginPath)$(TargetFileName).mdb&quot;" />
+
+    <!-- Actions for Release Configuration -->
+    <Exec Condition=" '$(Configuration)' == 'Release' " Command="copy &quot;$(TargetDir)$(TargetFileName)&quot; &quot;$(BepInExPluginPath)$(TargetFileName)&quot;" />
+    <Exec Condition=" '$(Configuration)' == 'Release' " Command="copy &quot;$(TargetDir)$(TargetFileName)&quot; &quot;$(ReleasePluginPath)$(TargetFileName)&quot;" />
+
+    <!-- Copying libs and shaders into /release directory for Release Configuration -->
+    <Exec Condition=" '$(Configuration)' == 'Release' " Command="copy &quot;$(LibsPath)*.*&quot; &quot;$(ReleaseManagedPath)&quot;" />
+    <Exec Condition=" '$(Configuration)' == 'Release' " Command="copy &quot;$(ShadersPath)*.*&quot; &quot;$(ReleasePluginPath)&quot;" />
+
+    <!-- Copying named files from UnstrippedCorlibPath into /release directory for Release Configuration -->
+    <Exec Condition=" '$(Configuration)' == 'Release' " Command="copy &quot;$(UnstrippedCorlibPath)UnityEngine.AnimationModule.dll&quot; &quot;$(ReleaseManagedPath)&quot;" />
+    <Exec Condition=" '$(Configuration)' == 'Release' " Command="copy &quot;$(UnstrippedCorlibPath)UnityEngine.AssetBundleModule.dll&quot; &quot;$(ReleaseManagedPath)&quot;" />
+    <Exec Condition=" '$(Configuration)' == 'Release' " Command="copy &quot;$(UnstrippedCorlibPath)UnityEngine.CoreModule.dll&quot; &quot;$(ReleaseManagedPath)&quot;" />
+    <Exec Condition=" '$(Configuration)' == 'Release' " Command="copy &quot;$(UnstrippedCorlibPath)UnityEngine.PhysicsModule.dll&quot; &quot;$(ReleaseManagedPath)&quot;" />
+    <Exec Condition=" '$(Configuration)' == 'Release' " Command="copy &quot;$(UnstrippedCorlibPath)UnityEngine.UI.dll&quot; &quot;$(ReleaseManagedPath)&quot;" />
+
+    <Exec Condition=" '$(Configuration)' == 'Release' " Command="copy &quot;$(SolutionDir)settings____Default.txt&quot; &quot;$(ReleasePath)settings___Default.txt&quot;" />
+    <Exec Condition=" '$(Configuration)' == 'Release' " Command="copy &quot;$(SolutionDir)settings_Example.txt&quot; &quot;$(ReleasePath)settings_Example.txt&quot;" />
+    <Exec Condition=" '$(Configuration)' == 'Release' " Command="copy &quot;$(SolutionDir)README.md&quot; &quot;$(ReleasePath)README.md&quot;" />
+
+
   </Target>
+
+
+
 
 </Project>

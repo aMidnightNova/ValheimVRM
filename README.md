@@ -1,17 +1,21 @@
 # ValheimVRM
 
-Mod to replace Valheim player with VRM model.
+This requires BepInEx to be installed.
 
-ヴァルヘイムのプレイヤーモデルを任意のVRMモデルに差し替えるMOD
+### How to install
+Drag the folders BepInEx,valheim_Data into your valheim install directory.
+the folders are setup to to put the files where they need to go.
 
-![VRM](https://github.com/yoship1639/ValheimVRM/raw/main/img/img000.png)
 
-## 導入方法 / Installation method
+### Settings
+The name of the character in the game needs to correspond to a VRM and settings file like so.
 
-[https://yoship1639.github.io/ValheimVRM/](https://yoship1639.github.io/ValheimVRM/)
+**Character**: Midnight Nova \
+**Settings File**: Midnight Nova_settings.txt \
+**VRM**: Midnight Nova.vrm
 
-### [キャラクター設定例 / Character settings example](settings_Example.txt)
 
-### [グローバル設定の例 / Global settings example](global_settings.txt)
+### Default Settings and avatar for people you do not have custom stuff for.
 
-### [小さな文字の設定例 / Small character settings example](settings_Example_Smol_Character.txt)
+you can have Default settings now, to use this. create a settings___Default.txt file, and pair
+___Default.vrm with it.

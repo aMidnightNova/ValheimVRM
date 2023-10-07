@@ -65,7 +65,17 @@ namespace ValheimVRM
 				var vrm = new VRMData(data);
 				var context = new VRMImporterContext(vrm);
 				var loaded = default(RuntimeGltfInstance);
-				loaded = context.Load();
+				
+				try
+				{
+					loaded = context.Load();
+				}
+				catch (TypeLoadException ex)
+				{
+					Debug.LogError("Failed to load type: " + ex.TypeName);
+					Debug.LogError(ex);
+				}
+				
 				loaded.ShowMeshes();
 
 				loaded.Root.transform.localScale = Vector3.one * scale;
@@ -92,7 +102,17 @@ namespace ValheimVRM
 				var vrm = new VRMData(data);
 				var context = new VRMImporterContext(vrm);
 				var loaded = default(RuntimeGltfInstance);
-				loaded = context.Load();
+				
+				try
+				{
+					loaded = context.Load();
+				}
+				catch (TypeLoadException ex)
+				{
+					Debug.LogError("Failed to load type: " + ex.TypeName);
+					Debug.LogError(ex);
+				}
+				
 				loaded.ShowMeshes();
 
 				loaded.Root.transform.localScale = Vector3.one * scale;
