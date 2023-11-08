@@ -23,24 +23,7 @@ namespace ValheimVRM
         void Awake()
         {
             
-// #if DEBUG
-//             int attempts = 0;
-//             while (!Debugger.IsAttached && attempts < 150) // let's timeout after 30 seconds
-//             {
-//                 Thread.Sleep(100); // wait for 100ms
-//                 attempts++;
-//
-//                 if(attempts % 10 == 0) // log every second
-//                 {
-//                     Logger.LogInfo("Waiting for debugger attachment...");
-//                 }
-//             }
-//             
-//             if(attempts >= 300)
-//             {
-//                 Logger.LogError("Timed out waiting for debugger attachment!");
-//             }
-// #endif
+
 
 
             
@@ -58,6 +41,28 @@ namespace ValheimVRM
 
             // Harmonyパッチ全てを適用する
             harmony.PatchAll();
+            
+            
+// #if DEBUG
+//             int attempts = 0;
+//             while (!Debugger.IsAttached && attempts < 300) // let's timeout after 30 seconds
+//             {
+//                 Thread.Sleep(100); // wait for 100ms
+//                 attempts++;
+//
+//                 if(attempts % 10 == 0) // log every second
+//                 {
+//                     Logger.LogInfo($"Waiting for debugger attachment. Status: {Debugger.IsAttached}");
+//                 }
+//             }
+//              
+//             if(attempts >= 300)
+//             {
+//                 Logger.LogError("Timed out waiting for debugger attachment!");
+//             }
+// #endif
+            
+            
 
             // MToonシェーダ初期化
             VRMShaders.Initialize();

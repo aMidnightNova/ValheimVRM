@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <Version>1.2.2</Version>
+    <Version>1.3.0.2</Version>
     <TargetFramework>net471</TargetFramework>
   </PropertyGroup>
 
@@ -31,8 +31,10 @@
     <Reference Include="BepInEx">
       <HintPath>$(VALHEIM_INSTALL)\BepInEx\core\BepInEx.dll</HintPath>
     </Reference>
- 
-    
+
+    <Reference Include="UnityEngine.ClothModule">
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.ClothModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.AnimationModule">
       <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
     </Reference>
@@ -160,6 +162,7 @@
 <!--      <LibFiles Include="$(ManagedPath)\UnityEngine.CoreModule.dll" />-->
 <!--      <LibFiles Include="$(ManagedPath)\UnityEngine.AnimationModule.dll" />-->
 <!--      <LibFiles Include="$(ManagedPath)\UnityEngine.AssetBundleModule.dll" />-->
+<!--      <LibFiles Include="$(UnstrippedCorlibPath)\UnityEngine.ClothModule.dll" />-->
 <!--      <LibFiles Include="$(ManagedPath)\UnityEngine.PhysicsModule.dll" />-->
 <!--      <LibFiles Include="$(ManagedPath)\UnityEngine.UI.dll" />-->
 
@@ -168,7 +171,8 @@
 
     <!-- COPY FILES TO LOCAL VALHIEM -->
     <Copy SourceFiles="@(LibFiles)" DestinationFolder="$(ManagedPath)" />
-    <Exec Command="copy &quot;$(SolutionDir)Assets\ValheimVRM.shaders&quot; &quot;$(BepInExPluginPath)UniVrm.shaders&quot;" />
+    <Exec Command="copy &quot;$(SolutionDir)Assets\UniVrm.shaders&quot; &quot;$(BepInExPluginPath)UniVrm.shaders&quot;" />
+    <Exec Command="copy &quot;$(SolutionDir)Assets\OldUniVrm.shaders&quot; &quot;$(BepInExPluginPath)OldUniVrm.shaders&quot;" />
 
 
     <!-- DEBUG BUILD STUFF -->
@@ -194,7 +198,8 @@
     <Exec Condition=" '$(Configuration)' == 'Release' " Command="copy &quot;$(TargetDir)$(TargetFileName)&quot; &quot;$(ReleasePluginPath)$(TargetFileName)&quot;" />
 
 
-    <Exec Condition=" '$(Configuration)' == 'Release' " Command="copy &quot;$(SolutionDir)Assets\ValheimVRM.shaders&quot; &quot;$(ReleasePluginPath)ValheimVRM.shaders&quot;" />
+    <Exec Condition=" '$(Configuration)' == 'Release' " Command="copy &quot;$(SolutionDir)Assets\UniVrm.shaders&quot; &quot;$(ReleasePluginPath)UniVrm.shaders&quot;" />
+    <Exec Condition=" '$(Configuration)' == 'Release' " Command="copy &quot;$(SolutionDir)Assets\OldUniVrm.shaders&quot; &quot;$(ReleasePluginPath)OldUniVrm.shaders&quot;" />
 
 
     <Copy Condition=" '$(Configuration)' == 'Release' " SourceFiles="@(LibFiles)" DestinationFolder="$(ReleaseManagedPath)" />
@@ -210,7 +215,7 @@
     <Exec Condition=" '$(Configuration)' == 'Release' " Command="powershell -command &quot;Compress-Archive -Path '$(ReleasePath)' -DestinationPath '$(SolutionDir)ValheimVRM-$(Version).zip'&quot; -Force" />
 
 
-    
+
   </Target>
 
 

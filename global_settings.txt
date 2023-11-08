@@ -3,3 +3,10 @@ ReloadInMenu=false
 
 // True if you want  to load your VRMs for other players before their own will be dowloaded
 AllowLocalVRMsForOtherPlayers=true
+
+// Ever since UniVrm 68 - 70 not sure 100% which in order to use Standard Materials of Unity you need a specific shader.
+// That shader is now in this project. Generally speaking current should work, even for older VRM exports. if it does not 
+// you can try switching to "old" the other shader bundle. Keep in mind this is a setting for all models.
+ 
+// Options are: old, current.
+UseShaderBundle=current

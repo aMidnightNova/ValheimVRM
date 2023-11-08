@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Runtime.CompilerServices;
 using UniGLTF;
 using UnityEngine;
 using VRM;
@@ -34,7 +35,19 @@ namespace ValheimVRM
 
 		public static void Initialize()
 		{
-			var bundlePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"ValheimVRM.shaders");
+			var bundlePath = "";
+			if (Settings.globalSettings.UseShaderBundle == "current")
+			{
+				bundlePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"UniVrm.shaders");
+			} else if (Settings.globalSettings.UseShaderBundle == "old")
+			{
+				bundlePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"OldUniVrm.shaders");
+			}
+			else
+			{
+				Debug.LogError("[ValheimVRM] Invalid UseShaderBundle; old, current");
+			}
+			
 			if (File.Exists(bundlePath))
 			{
 				var assetBundle = AssetBundle.LoadFromFile(bundlePath);
@@ -204,11 +217,22 @@ namespace ValheimVRM
 		{
 			if (!__instance.m_isPlayer) return;
 			var player = __instance.GetComponent<Player>();
-			if (player == null || !VrmManager.PlayerToVrmInstance.ContainsKey(player)) return;
 			
+			if (player == null) return;
+			
+			Debug.Log("_______ UpdateLodgroup Running");
+			
+			if (!VrmManager.PlayerToVrmInstance.TryGetValue(player, out var vrm) || vrm == null) return;
+			
+
 			var name = VrmManager.PlayerToName[player];
 
 			var settings = Settings.GetSettings(name);
+			
+			// Scale for all equipment.
+			float equipmentScale = settings.EquipmentScale;
+			Vector3 equipmentScaleVector = new Vector3(equipmentScale, equipmentScale, equipmentScale);
+			
 
 			var hair = __instance.GetField<VisEquipment, GameObject>("m_hairItemInstance");
 			if (hair != null) SetVisible(hair, false);
@@ -222,6 +246,49 @@ namespace ValheimVRM
 				if (!settings.ChestVisible)
 				{
 					foreach (var chest in chestList) SetVisible(chest, false);
+				}
+				
+				if (settings.UseBlendshapeArmorSwap)
+				{
+					Debug.Log("UpdateLodgroup Chest | armor on | vrm found");
+
+					var proxy = vrm.GetComponent<VRMBlendShapeSync>();
+
+					proxy.SetValues(new Dictionary<BlendShapeKey, float>
+					{
+						{BlendShapeKey.CreateUnknown("v_armorswap_rag"), 0.0f},
+						{BlendShapeKey.CreateUnknown("v_armorswap_leather"), 0.0f}
+					});
+						
+					//var armorSwap = vrm.GetComponent<VRMBlendShapeSync>();
+					// armorSwap["Tail_Small"].Smr.SetBlendShapeWeight(armorSwap["Tail_Small"].Index, 0.0f);
+					// armorSwap["Eyes_Blink_L"].Smr.SetBlendShapeWeight(armorSwap["Eyes_Blink_L"].Index, 0.0f);
+					// armorSwap["Eyes_Blink_R"].Smr.SetBlendShapeWeight(armorSwap["Eyes_Blink_R"].Index, 0.0f);
+				}
+			}
+			else
+			{
+				if (settings.UseBlendshapeArmorSwap)
+				{
+					Debug.Log("UpdateLodgroup Chest | NO armor on | vrm found");
+
+					var proxy = vrm.GetComponent<VRMBlendShapeSync>();
+
+					if (proxy == null)
+					{
+						Debug.LogError("VRMBlendShapeProxy not found!");
+						return;
+					}
+
+					proxy.SetValues(new Dictionary<BlendShapeKey, float>
+					{
+						{BlendShapeKey.CreateUnknown("v_armorswap_rag"), 1.0f},
+						{BlendShapeKey.CreateUnknown("v_armorswap_leather"), 1.0f}
+					});
+					//var armorSwap = vrm.GetComponent<VRMBlendShapeSync>();
+					// armorSwap["Tail_Small"].Smr.SetBlendShapeWeight(armorSwap["Tail_Small"].Index, 100.0f);
+					// armorSwap["Eyes_Blink_L"].Smr.SetBlendShapeWeight(armorSwap["Eyes_Blink_L"].Index, 100.0f);
+					// armorSwap["Eyes_Blink_R"].Smr.SetBlendShapeWeight(armorSwap["Eyes_Blink_R"].Index, 100.0f);
 				}
 			}
 
@@ -247,12 +314,49 @@ namespace ValheimVRM
 			}
 
 			var utilityList = __instance.GetField<VisEquipment, List<GameObject>>("m_utilityItemInstances");
+			var MegingjordAttached = false;
+
 			if (utilityList != null)
 			{
-				if (!settings.UtilityVisible)
+
+				
+				foreach (var utility in utilityList)
 				{
-					foreach (var utility in utilityList) SetVisible(utility, false);
+					var utilityItemName = Utils.GetField<VisEquipment>("m_utilityItem").GetValue(__instance);
+					if (!settings.UtilityVisible)
+					{
+						SetVisible(utility, false);
+					}
+					else if (settings.UtilityVisible && MeshSync.Instance.IsReady)
+					{
+						SetVisible(utility, false);
+						
+						MegingjordAttached = utilityItemName.ToString() == MeshSync.Instance.GetEquipmentName(MeshSync.Equipment.Megingjord);
+												
+						
+						if (MegingjordAttached && !MeshSync.Instance.IsAttached(MeshSync.Bones.Hips, MeshSync.Equipment.Megingjord, vrm))
+						{
+							var meshMegingjord = MeshSync.Instance.AttachTo(MeshSync.Bones.Hips, MeshSync.Equipment.Megingjord, vrm, true);
+
+							if (meshMegingjord != null)
+							{ // we have to transform the mesh elseware. Because of this instead of replacement values there additive values.
+								var childMesh = meshMegingjord.transform.GetChild(0).gameObject;
+								if (childMesh)
+								{
+									MeshSync.Instance.MakeTransforms(ref childMesh, settings);
+								}
+								meshMegingjord.transform.localPosition = settings.MegingjordPos;
+								meshMegingjord.transform.localRotation = Quaternion.Euler(settings.MegingjordRot);
+							}
+						}
+					}
 				}
+			}
+			// Clean up
+
+			if (!MegingjordAttached && MeshSync.Instance.IsAttached(MeshSync.Bones.Hips, MeshSync.Equipment.Megingjord, vrm))
+			{
+				MeshSync.Instance.DetachFrom(MeshSync.Bones.Hips, MeshSync.Equipment.Megingjord, vrm);
 			}
 
 			var helmet = __instance.GetField<VisEquipment, GameObject>("m_helmetItemInstance");
@@ -269,10 +373,6 @@ namespace ValheimVRM
 				}
 			}
 
-			// 武器位置合わせ
-			float equipmentScale = settings.EquipmentScale;
-			Vector3 equipmentScaleVector = new Vector3(equipmentScale, equipmentScale, equipmentScale);
-			
 			var leftItem = __instance.GetField<VisEquipment, GameObject>("m_leftItemInstance");
 			if (leftItem != null)
 			{
@@ -362,7 +462,7 @@ namespace ValheimVRM
 			
 
 				var ragAnim = ragdoll.gameObject.AddComponent<Animator>();
-				ragAnim.keepAnimatorControllerStateOnDisable = true;
+				ragAnim.keepAnimatorStateOnDisable = true;
 				ragAnim.cullingMode = AnimatorCullingMode.AlwaysAnimate;
 
 				var orgAnim = (player.GetField<Player, Animator>("m_animator"));

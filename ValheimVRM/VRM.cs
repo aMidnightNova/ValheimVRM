@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using HarmonyLib;
 using UniGLTF;
 using UnityEngine;
 using VRM;
+using Debug = UnityEngine.Debug;
 using Object = UnityEngine.Object;
 
 namespace ValheimVRM
@@ -165,35 +168,43 @@ namespace ValheimVRM
 			}
 
 			var orgAnim = AccessTools.FieldRefAccess<Player, Animator>(player, "m_animator");
-			orgAnim.keepAnimatorControllerStateOnDisable = true;
+			orgAnim.keepAnimatorStateOnDisable = true;
 			orgAnim.cullingMode = AnimatorCullingMode.AlwaysAnimate;
 
 			vrmModel.transform.localPosition = orgAnim.transform.localPosition;
 
-			// アニメーション同期
-			if (vrmModel.GetComponent<VRMAnimationSync>() == null) vrmModel.AddComponent<VRMAnimationSync>().Setup(orgAnim, settings, false);
-			else vrmModel.GetComponent<VRMAnimationSync>().Setup(orgAnim, settings, false);
+			// Synchronizing animation
+			var animSync = vrmModel.GetComponent<VRMAnimationSync>() ?? vrmModel.AddComponent<VRMAnimationSync>();
+			animSync.Setup(orgAnim, settings, false);
 
-			// カメラ位置調整
+			// Adjusting camera position
 			if (settings.FixCameraHeight)
 			{
-				var vrmEye = vrmModel.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.LeftEye);
-				if (vrmEye == null) vrmEye = vrmModel.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.Head);
-				if (vrmEye == null) vrmEye = vrmModel.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.Neck);
+				var vrmEye = vrmModel.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.LeftEye) 
+				             ?? vrmModel.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.Head) 
+				             ?? vrmModel.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.Neck);
+
 				if (vrmEye != null)
 				{
-					if (player.gameObject.GetComponent<VRMEyePositionSync>() == null) player.gameObject.AddComponent<VRMEyePositionSync>().Setup(vrmEye);
-					else player.gameObject.GetComponent<VRMEyePositionSync>().Setup(vrmEye);
+					var eyePosSync = player.gameObject.GetComponent<VRMEyePositionSync>() ?? player.gameObject.AddComponent<VRMEyePositionSync>();
+					eyePosSync.Setup(vrmEye);
 				}
 			}
 
-			// MToonの場合環境光の影響をカラーに反映する
+			// Reflecting ambient light's effect on color when using MToon
 			if (settings.UseMToonShader)
 			{
-				if (vrmModel.GetComponent<MToonColorSync>() == null) vrmModel.AddComponent<MToonColorSync>().Setup(vrmModel);
-				else vrmModel.GetComponent<MToonColorSync>().Setup(vrmModel);
+				var mToon = vrmModel.GetComponent<MToonColorSync>() ?? vrmModel.AddComponent<MToonColorSync>();
+				mToon.Setup(vrmModel);
 			}
 
+			if (settings.UseBlendshapeArmorSwap)
+			{
+				var blendShapeSync = vrmModel.GetComponent<VRMBlendShapeSync>() ?? vrmModel.AddComponent<VRMBlendShapeSync>();
+				blendShapeSync.Setup(vrmModel);
+			}
+
+			
 			// SpringBone設定
 			foreach (var springBone in vrmModel.GetComponentsInChildren<VRMSpringBone>())
 			{

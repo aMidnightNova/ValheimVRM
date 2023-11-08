@@ -1,7 +1,62 @@
-//--- Player size settings ---//
+
+//--- Game Object Visibility ---// You most likely want to keep these false.
+UtilityVisible=false
+ShouldersVisible=false
+LegsVisible=false
+ChestVisible=false
+//---
+
+//--- VRM Model Settings ---//
+
+// VRM model brightness
+ModelBrightness=0.8
+
+// Adjust the camera position to the height of the VRM model
+FixCameraHeight=true
+
+// Use the MToon shader - If you want to use it, set "SSAO" to Off in the graphics settings
+UseMToonShader=false
+
+// Make the player fade out when the camera gets close - It is recommended to disable it on smaller characters
+EnablePlayerFade=true
+
+// Stiffness scale of SpringBone
+SpringBoneStiffness=1.0
+
+// Gravity strength scale of SpringBone
+SpringBoneGravityPower=1.0
+
+
+// Not Implemented atm, - auto share vrms with other players on the server.
+AllowShare=false
+
+
+// SWAP armor sets via Blendshape Toggles
+UseBlendshapeArmorSwap=false
+//---
+ 
+ 
+//--- General Scaling ---//
+
+// Scale for the equipment in hands
+EquipmentScale=1.0
+
+// Scale for the interaction distance
+InteractionDistanceScale=1.0
+
+// Scale for attack distance
+AttackDistanceScale=1.0
+
+// Depth on which your character starts swimming
+SwimDepthScale=1.0
+
+ 
+
+
+//--- Player size Transforms ---//
 
 // VRM model scale
-ModelScale=1.1
+ModelScale=1.0
 
 // Y-coordinate offset of the model
 ModelOffsetY=0
@@ -11,6 +66,10 @@ PlayerHeight=1.85
 
 // Player collider radius
 PlayerRadius=0.5
+//---
+
+
+//--- Player Offset Transforms ---//
 
 // Nice for smol characters, so they could sit on the edge and do not clip in chairs
 SittingOnChairOffset=(0, 0, 0)
@@ -34,8 +93,12 @@ SittingIdleOffset=(0, 0, 0)
 SleepingOffset=(0, 0, 0)
 
 
+//--- Player Equipment Transforms ---//
 
-//--- Equipment transformation ---//
+//Utility Items  
+MegingjordPos=(0, 0, 0)
+MegingjordRot=(0, 0, 0)
+MegingjordScale=1.0
 
 // Offset of the equipment position of the right hand
 RightHandItemPos=(0, 0, 0)
@@ -56,53 +119,6 @@ StaffRot=(0, 0, 0)
 LeftHandBackItemPos=(0, 0, 0)
 BowBackPos=(0, 0, 0)
 StaffSkeletonPos=(0, 0, 0)
-
-
-//--- Misc ---//
-
-// VRM model brightness
-ModelBrightness=0.8
-
-// Adjust the camera position to the height of the VRM model
-FixCameraHeight=true
-
-// Use the MToon shader
-// If you want to use it, set "SSAO" to Off in the graphics settings
-UseMToonShader=false
-
-// Make the player fade out when the camera gets close
-// It is recommended to disable it on smol characters
-EnablePlayerFade=true
-
-// Can we send this vrm to other players
-// Currently unsupported
-AllowShare=true
-
-
-
-//--- SpringBone settings ---//
-
-// Stiffness scale of SpringBone
-SpringBoneStiffness=1.0
-
-// Gravity strength scale of SpringBone
-SpringBoneGravityPower=1.0
-
-
-
-//--- Scaling ---//
-
-// Scale for the equipment in hands
-EquipmentScale=1.0
-
-// Scale for the interaction distance
-InteractionDistanceScale=1.0
-
-// Scale for attack distance
-AttackDistanceScale=1.0
-
-// Depth on which your character starts swiming
-SwimDepthScale=1.0
-
+//---
 
 

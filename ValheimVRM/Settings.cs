@@ -218,6 +218,8 @@ namespace ValheimVRM
             public Vector3 StaffPos = Vector3.zero;
             public Vector3 StaffSkeletonPos = Vector3.zero;
             public Vector3 StaffRot = Vector3.zero;
+            public Vector3 MegingjordPos = Vector3.zero;
+            public Vector3 MegingjordRot = Vector3.zero;
 
             public bool HelmetVisible = false;
             public Vector3 HelmetScale = Vector3.one;
@@ -227,6 +229,8 @@ namespace ValheimVRM
             public bool ShouldersVisible = false;
             public bool UtilityVisible = false;
             public bool LegsVisible = false;
+            
+            public bool UseBlendshapeArmorSwap = false;
 
             public float ModelBrightness = 0.8f;
             public bool FixCameraHeight = true;
@@ -238,6 +242,7 @@ namespace ValheimVRM
             public float SpringBoneGravityPower = 1.0f;
 
             public float EquipmentScale = 1.0f;
+            public float MegingjordScale = 1.0f;
             public float AttackDistanceScale = 1.0f;
             public float InteractionDistanceScale = 1.0f;
             public float SwimDepthScale = 1.0f;
@@ -329,6 +334,7 @@ namespace ValheimVRM
             public float StartVrmShareDelay = 10.0f;
             public bool ForceWindDisabled = false;
             public bool AllowIndividualWinds = true;
+            public string UseShaderBundle = "current";
 
             public override void OnUpdate(Dictionary<string, object> oldValues)
             {
