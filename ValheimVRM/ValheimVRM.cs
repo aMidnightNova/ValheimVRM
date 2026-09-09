@@ -79,7 +79,7 @@ namespace ValheimVRM
 			}
 			else
 			{
-				Debug.LogError("[ValheimVRM] Invalid UseShaderBundle; old, current");
+				Debug.LogWarning("[ValheimVRM] Invalid UseShaderBundle; old, current");
 			}
 			
 			if (File.Exists(bundlePath))
@@ -88,8 +88,15 @@ namespace ValheimVRM
 				var assets = assetBundle.LoadAllAssets<Shader>();
 				foreach (var asset in assets)
 				{
-					UnityEngine.Debug.Log("[ValheimVRM] Add Shader: " + asset.name);
-					Shaders.Add(asset.name, asset);
+					try
+					{
+						UnityEngine.Debug.Log("[ValheimVRM] Add Shader: " + asset.name);
+						Shaders.Add(asset.name, asset);
+					}
+					catch (Exception ex)
+					{
+						Debug.LogError(ex);
+					}
 				}
 			}
 		}

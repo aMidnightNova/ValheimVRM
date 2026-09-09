@@ -20,7 +20,7 @@ namespace ValheimVRM
     {
         public const string PluginGuid = "com.yoship1639.plugins.valheimvrm";
         public const string PluginName = "ValheimVRM";
-        public const string PluginVersion = "1.3.11.0";
+        public const string PluginVersion = "1.3.12.0";
         
         private static Harmony _harmony = new Harmony("com.yoship1639.plugins.valheimvrm.patch");
 
