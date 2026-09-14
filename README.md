@@ -1,8 +1,10 @@
-# ValheimVRM
+### This fork of ValheimVRM is no longer maintained, is has been replaced by:
 
-**This mod requires [BepInEx](https://thunderstore.io/c/valheim/p/denikson/BepInExPack_Valheim/) to be installed.**
+# New Version: [EnhancedValheimVRM](https://github.com/aMidnightNova/EnhancedValheimVRM)
 
-This fork is actively developed and maintained. If you need help, want to request a feature, or found a bug; Head on over to the [discord](https://discord.gg/q3wuVMCvXE).
+If you have questions, find us on [discord](https://discord.gg/q3wuVMCvXE).
+
+---
 
 ### Notes
 If the model has MToon shaders you should not have ssao on, this is true even if you do not have MToon stuff enabled in the settings. You can set AttemptTextureFix to true, it will convert shaders to standard at game runtime.
